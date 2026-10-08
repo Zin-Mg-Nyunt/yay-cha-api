@@ -25,5 +25,5 @@ model Post {
   title   String
   content String
   userId  Int
-  user    User   @relation(fields: [userId], references: [id])
+  author  User   @relation(fields: [userId], references: [id])
 }
