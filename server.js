@@ -13,6 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 import postRouter from "./router/PostRoute.js";
 app.use("/posts", postRouter);
 
+import userRouter from "./router/UserRoute.js";
+app.use("/users", userRouter);
+
 // Start server
 const server = app.listen(8000, () => {
   console.log("Server is running on port 8000");
