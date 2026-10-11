@@ -8,6 +8,7 @@ router.get("/", async (req, res) => {
     const posts = await prisma.post.findMany({
       include: {
         author: true,
+        comments: true,
       },
       orderBy: {
         id: "desc",
@@ -27,6 +28,11 @@ router.get("/:id", async (req, res) => {
       where: { id: Number(id) },
       include: {
         author: true,
+        comments: {
+          include: {
+            author: true,
+          },
+        },
       },
     });
     if (!post) {

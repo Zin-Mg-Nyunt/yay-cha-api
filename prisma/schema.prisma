@@ -18,11 +18,22 @@ model User {
   password String
   bio      String?
   posts    Post[]
+  comments Comment[]
 }
 
 model Post {
-  id      Int    @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
+  body     String
+  userId   Int
+  author   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments Comment[]
+}
+
+model Comment {
+  id      Int     @id @default(autoincrement())
   body    String
   userId  Int
-  author  User   @relation(fields: [userId], references: [id])
+  author  User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId  Int
+  post    Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
 }

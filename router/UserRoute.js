@@ -6,7 +6,12 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      include: {
+        posts: true,
+        comments: true,
+      },
+    });
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -18,6 +23,10 @@ router.get("/:id", async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: Number(id) },
+      include: {
+        posts: true,
+        comments: true,
+      },
     });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
