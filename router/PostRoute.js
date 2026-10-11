@@ -39,25 +39,25 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { title, content, authorId } = req.body;
-  if (!title || !content || !authorId) {
+  const { body, authorId } = req.body;
+  if (!body || !authorId) {
     return res.status(400).json({ error: "Missing required fields" });
   }
   const post = await prisma.post.create({
-    data: { title, content, authorId },
+    data: { body, authorId },
   });
   res.json(post);
 });
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { title, content, authorId } = req.body;
-  if (!title || !content || !authorId) {
+  const { body, authorId } = req.body;
+  if (!body || !authorId) {
     return res.status(400).json({ error: "Missing required fields" });
   }
   const post = await prisma.post.update({
     where: { id: Number(id) },
-    data: { title, content, authorId },
+    data: { body, authorId },
   });
   res.json(post);
 });
